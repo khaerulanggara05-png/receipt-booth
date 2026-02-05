@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Booth - Admin Panel</title>
+    <link rel="stylesheet" href="assets/admin-style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>⚙️ Admin Panel - Receipt Booth</h1>
+            <p>Kelola tampilan dan konten kiosk receipt booth kamu</p>
+        </div>
+
+        <div class="status-bar" id="statusBar">
+            Perubahan berhasil disimpan!
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="adminApp.switchTab('branding')">🎨 Branding</button>
+            <button class="tab" onclick="adminApp.switchTab('packages')">📦 Paket</button>
+            <button class="tab" onclick="adminApp.switchTab('phrases')">💬 Frase</button>
+            <button class="tab" onclick="adminApp.switchTab('settings')">⚙️ Pengaturan</button>
+        </div>
+
+        <!-- Tab 1: Branding -->
+        <div class="tab-content active" id="branding">
+            <div class="section">
+                <h2>Welcome Screen</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Logo Emoji</label>
+                        <input type="text" id="welcomeLogo" maxlength="2">
+                        <div class="emoji-picker">
+                            <span class="emoji-option" onclick="adminApp.setEmoji('welcomeLogo', '🧾')">🧾</span>
+                            <span class="emoji-option" onclick="adminApp.setEmoji('welcomeLogo', '📸')">📸</span>
+                            <span class="emoji-option" onclick="adminApp.setEmoji('welcomeLogo', '✨')">✨</span>
+                            <span class="emoji-option" onclick="adminApp.setEmoji('welcomeLogo', '💫')">💫</span>
+                            <span class="emoji-option" onclick="adminApp.setEmoji('welcomeLogo', '🎉')">🎉</span>
+                            <span class="emoji-option" onclick="adminApp.setEmoji('welcomeLogo', '📄')">📄</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Judul Welcome</label>
+                        <input type="text" id="welcomeTitle" placeholder="Receipt Booth">
+                        <small>Nama aplikasi yang ditampilkan</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Subtitle Welcome</label>
+                    <input type="text" id="welcomeSubtitle" placeholder="Cetak kenangan dalam struk!">
+                    <small>Tagline atau deskripsi singkat</small>
+                </div>
+                <div class="form-group">
+                    <label>Teks Tombol Start</label>
+                    <input type="text" id="startButtonText" placeholder="✨ MULAI">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Receipt Header</h2>
+                <div class="form-group">
+                    <label>Nama Toko/Brand</label>
+                    <input type="text" id="storeName" placeholder="MEMORY STORE">
+                    <small>Akan muncul di bagian atas struk</small>
+                </div>
+                <div class="form-group">
+                    <label>Tagline Toko</label>
+                    <input type="text" id="storeTagline" placeholder="★ Receipt Booth ★">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Packages -->
+        <div class="tab-content" id="packages">
+            <div class="section">
+                <h2>Kelola Paket</h2>
+                <div id="packagesList"></div>
+                <button class="btn btn-secondary" onclick="adminApp.addNewPackage()">+ Tambah Paket Baru</button>
+            </div>
+        </div>
+
+        <!-- Tab 3: Phrases -->
+        <div class="tab-content" id="phrases">
+            <div class="section">
+                <h2>Teks Screen</h2>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Judul Pilih Frame</label>
+                        <input type="text" id="frameTitle" placeholder="Pilih Paket">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtitle Pilih Frame</label>
+                        <input type="text" id="frameSubtitle" placeholder="Pilih layout receipt kamu">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Judul Payment</label>
+                        <input type="text" id="paymentTitle" placeholder="Pembayaran">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtitle Payment</label>
+                        <input type="text" id="paymentSubtitle" placeholder="Scan QRIS untuk lanjut">
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Judul Camera</label>
+                        <input type="text" id="cameraTitle" placeholder="Ambil Foto">
+                    </div>
+                    <div class="form-group">
+                        <label>Subtitle Camera</label>
+                        <input type="text" id="cameraSubtitle" placeholder="Bersiaplah!">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Pesan & Frase Receipt</h2>
+                <div class="form-group">
+                    <label>Pesan Terima Kasih</label>
+                    <input type="text" id="thankYou" placeholder="Terima kasih sudah berbagi momen!">
+                </div>
+                <div class="form-group">
+                    <label>Footer Receipt</label>
+                    <input type="text" id="footer" placeholder="Keep the memories alive ✨">
+                </div>
+                <div class="form-group">
+                    <label>Pesan Printing</label>
+                    <input type="text" id="printingMsg" placeholder="Receipt kamu sedang dicetak...">
+                </div>
+                <div class="form-group">
+                    <label>Pesan Download</label>
+                    <input type="text" id="downloadMsg" placeholder="Receipt berhasil diunduh!">
+                </div>
+                <div class="form-group">
+                    <label>Pesan Email</label>
+                    <input type="text" id="emailMsg" placeholder="Receipt dikirim ke email!">
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Settings -->
+        <div class="tab-content" id="settings">
+            <div class="section">
+                <h2>Pengaturan Umum</h2>
+                <div class="form-group">
+                    <label>Durasi Timer Pembayaran (detik)</label>
+                    <input type="number" id="paymentTimeout" value="300" min="60" max="600">
+                    <small>Default: 300 detik (5 menit)</small>
+                </div>
+                <div class="form-group">
+                    <label>Durasi Countdown Foto (detik)</label>
+                    <input type="number" id="captureCountdown" value="3" min="1" max="10">
+                    <small>Default: 3 detik</small>
+                </div>
+            </div>
+
+            <div class="section export-section">
+                <h3>📤 Export/Import Konfigurasi</h3>
+                <p style="margin-bottom: 15px;">Backup dan restore semua pengaturan</p>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" onclick="adminApp.exportConfig()">💾 Export Config</button>
+                    <button class="btn btn-primary" onclick="document.getElementById('importFile').click()">📥 Import Config</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="adminApp.importConfig(event)">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Preview Konfigurasi</h2>
+                <div class="preview-box">
+                    <pre id="configPreview" style="overflow-x: auto; font-size: 0.9em;"></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="adminApp.saveConfig()">💾 Simpan Semua Perubahan</button>
+            <button class="btn btn-secondary" onclick="adminApp.previewKiosk()">👁️ Preview Kiosk</button>
+            <button class="btn btn-danger" onclick="adminApp.resetToDefault()">🔄 Reset ke Default</button>
+        </div>
+    </div>
+
+    <script src="assets/admin.js"></script>
+</body>
+</html>
